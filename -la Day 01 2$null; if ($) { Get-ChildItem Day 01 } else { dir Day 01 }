@@ -1,0 +1,205 @@
+[1mdiff --git a/day00_objects_and_classes.ipynb b/day00_objects_and_classes.ipynb[m
+[1mdeleted file mode 100644[m
+[1mindex 7472ef7..0000000[m
+[1m--- a/day00_objects_and_classes.ipynb[m
+[1m+++ /dev/null[m
+[36m@@ -1,272 +0,0 @@[m
+[31m-{[m
+[31m- "cells": [[m
+[31m-  {[m
+[31m-   "cell_type": "markdown",[m
+[31m-   "id": "177ab6ce",[m
+[31m-   "metadata": {},[m
+[31m-   "source": [[m
+[31m-    "# Day 00: Objects and Classes\n",[m
+[31m-    "\n",[m
+[31m-    "Notes for myself on **objects** and **classes** in Python. \n",[m
+[31m-    "\n",[m
+[31m-    "**What I'm learning:**\n",[m
+[31m-    "- Everything in Python is an object\n",[m
+[31m-    "- Creating my own classes to define custom objects\n",[m
+[31m-    "- Adding attributes (data) and methods (behaviors) to classes\n",[m
+[31m-    "- Using the `__init__` method to initialize objects\n",[m
+[31m-    "- Combining objects together (object composition)\n",[m
+[31m-    "- Understanding the `self` parameter\n",[m
+[31m-    "\n",[m
+[31m-    "Classes are blueprints for creating objects, and objects are instances of classes. This is the foundation of Object-Oriented Programming (OOP) in Python.\n"[m
+[31m-   ][m
+[31m-  },[m
+[31m-  {[m
+[31m-   "cell_type": "code",[m
+[31m-   "execution_count": 5,[m
+[31m-   "id": "34011d42",[m
+[31m-   "metadata": {},[m
+[31m-   "outputs": [[m
+[31m-    {[m
+[31m-     "name": "stdout",[m
+[31m-     "output_type": "stream",[m
+[31m-     "text": [[m
+[31m-      "<class 'str'>\n",[m
+[31m-      "<class 'int'>\n"[m
+[31m-     ][m
+[31m-    }[m
+[31m-   ],[m
+[31m-   "source": [[m
+[31m-    "# Everything I create in Python is an object. Let me check this:\n",[m
+[31m-    "\n",[m
+[31m-    "name = \"Amir\"\n",[m
+[31m-    "age = 28\n",[m
+[31m-    "\n",[m
+[31m-    "print(type(name))  # <class 'str'>\n",[m
+[31m-    "print(type(age))  # <class 'int'>\n",[m
+[31m-    "\n",[m
+[31m-    "# Objects are made by classes. Classes are the blueprints for objects - they describe what an object should look like. \n",[m
+[31m-    "# Looking at the `name` variable above:\n",[m
+[31m-    "# - The `name` variable is assigned to a string object\n",[m
+[31m-    "# - The `str` class defines what each string object looks like\n"[m
+[31m-   ][m
+[31m-  },[m
+[31m-  {[m
+[31m-   "cell_type": "markdown",[m
+[31m-   "id": "fbe634a6",[m
+[31m-   "metadata": {},[m
+[31m-   "source": [[m
+[31m-    "## Object vs. Class - Key Differences\n",[m
+[31m-    "\n",[m
+[31m-    "| Class | Object |\n",[m
+[31m-    "|-------|--------|\n",[m
+[31m-    "| Blueprint | Instance of the blueprint |\n",[m
+[31m-    "| Defines properties and methods | Holds actual data |\n",[m
+[31m-    "| Created once (typically) | Many objects can be created from one class |\n",[m
+[31m-    "| Example: `Car` | Example: `my_car = Car(\"Toyota\")` |\n"[m
+[31m-   ][m
+[31m-  },[m
+[31m-  {[m
+[31m-   "cell_type": "markdown",[m
+[31m-   "id": "02e70f2f",[m
+[31m-   "metadata": {},[m
+[31m-   "source": [[m
+[31m-    "## Creating My First Class\n",[m
+[31m-    "\n",[m
+[31m-    "I'm creating my own custom class! A class describes what information (**attributes** or **data**) and behaviors (**methods**) every object of that type should have.\n",[m
+[31m-    "\n",[m
+[31m-    "Starting with a simple `Car` class that has just one behavior (method) - the ability to start.\n"[m
+[31m-   ][m
+[31m-  },[m
+[31m-  {[m
+[31m-   "cell_type": "code",[m
+[31m-   "execution_count": 6,[m
+[31m-   "id": "c3f25e0b",[m
+[31m-   "metadata": {},[m
+[31m-   "outputs": [[m
+[31m-    {[m
+[31m-     "name": "stdout",[m
+[31m-     "output_type": "stream",[m
+[31m-     "text": [[m
+[31m-      "Vroom vroom!\n"[m
+[31m-     ][m
+[31m-    }[m
+[31m-   ],[m
+[31m-   "source": [[m
+[31m-    "# Car class describes what information (\"attributes\" or \"data\") and behaviours (\"methods\") every car should have.\n",[m
+[31m-    "# Creating a very simple Car class that has no data and just one behaviour\n",[m
+[31m-    "class Car:\n",[m
+[31m-    "    def start(self):\n",[m
+[31m-    "        print(\"Vroom vroom!\")\n",[m
+[31m-    "\n",[m
+[31m-    "# Creating a variable called `my_car` and assigning it to an instance of (an object made from) the Car class.\n",[m
+[31m-    "my_car = Car()\n",[m
+[31m-    "my_car.start()  # Vroom vroom!\n"[m
+[31m-   ][m
+[31m-  },[m
+[31m-  {[m
+[31m-   "cell_type": "markdown",[m
+[31m-   "id": "24103f64",[m
+[31m-   "metadata": {},[m
+[31m-   "source": [[m
+[31m-    "## Adding Data to Classes\n",[m
+[31m-    "\n",[m
+[31m-    "The simple `Car` class above only had a behavior (starting), but no data. Now I'm adding some data to the Car class so each car object (or \"instance\") can have its own make, model, and year.\n",[m
+[31m-    "\n",[m
+[31m-    "I'll use the `__init__` method, which is a special method that runs only once when an object is instantiated (created). This is where I set up my object's initial data.\n"[m
+[31m-   ][m
+[31m-  },[m
+[31m-  {[m
+[31m-   "cell_type": "code",[m
+[31m-   "execution_count": 7,[m
+[31m-   "id": "58175517",[m
+[31m-   "metadata": {},[m
+[31m-   "outputs": [[m
+[31m-    {[m
+[31m-     "name": "stdout",[m
+[31m-     "output_type": "stream",[m
+[31m-     "text": [[m
+[31m-      "Vroom vroom!\n",[m
+[31m-      "2020 Toyota Camry\n",[m
+[31m-      "Toyota\n",[m
+[31m-      "Vroom vroom!\n",[m
+[31m-      "2018 Honda Civic\n",[m
+[31m-      "2018\n"[m
+[31m-     ][m
+[31m-    }[m
+[31m-   ],[m
+[31m-   "source": [[m
+[31m-    "# Adding some data to the Car class, so each car object (or \"instance\") can have a make, model, and year:\n",[m
+[31m-    "class Car2:\n",[m
+[31m-    "\n",[m
+[31m-    "    def __init__(self, make, model, year):\n",[m
+[31m-    "        self.make = make\n",[m
+[31m-    "        self.model = model\n",[m
+[31m-    "        self.year = year\n",[m
+[31m-    "\n",[m
+[31m-    "    def start(self):\n",[m
+[31m-    "        print(\"Vroom vroom!\")\n",[m
+[31m-    "\n",[m
+[31m-    "    def get_info(self):\n",[m
+[31m-    "        return f\"{self.year} {self.make} {self.model}\"\n",[m
+[31m-    "\n",[m
+[31m-    "# __init__ is a special method that runs only once when an object is instantiated (created). I can setup my object data in here\n",[m
+[31m-    "\n",[m
+[31m-    "amir_car = Car2(\"Toyota\", \"Camry\", 2020)\n",[m
+[31m-    "amir_car.start()\n",[m
+[31m-    "print(amir_car.get_info())\n",[m
+[31m-    "print(amir_car.make)\n",[m
+[31m-    "\n",[m
+[31m-    "friends_car = Car2(\"Honda\", \"Civic\", 2018)\n",[m
+[31m-    "friends_car.start()\n",[m
+[31m-    "print(friends_car.get_info())\n",[m
+[31m-    "print(friends_car.year)\n"[m
+[31m-   ][m
+[31m-  },[m
+[31m-  {[m
+[31m-   "cell_type": "markdown",[m
+[31m-   "id": "9992d45d",[m
+[31m-   "metadata": {},[m
+[31m-   "source": [[m
+[31m-    "## Combining Objects (Object Composition)\n",[m
+[31m-    "\n",[m
+[31m-    "Objects can contain other objects! This is called **object composition**. I'm creating a `Driver` class and then having my `Car3` class contain a `Driver` object. This allows me to model real-world relationships between objects.\n"[m
+[31m-   ][m
+[31m-  },[m
+[31m-  {[m
+[31m-   "cell_type": "code",[m
+[31m-   "execution_count": 8,[m
+[31m-   "id": "614c356f",[m
+[31m-   "metadata": {},[m
+[31m-   "outputs": [[m
+[31m-    {[m
+[31m-     "name": "stdout",[m
+[31m-     "output_type": "stream",[m
+[31m-     "text": [[m
+[31m-      "Amir\n",[m
+[31m-      "2023 Tesla Model 3\n"[m
+[31m-     ][m
+[31m-    }[m
+[31m-   ],[m
+[31m-   "source": [[m
+[31m-    "# Combining objects - a car can have a driver\n",[m
+[31m-    "class Driver:\n",[m
+[31m-    "    def __init__(self, name, address, phone_number):\n",[m
+[31m-    "        self.name = name\n",[m
+[31m-    "        self.address = address\n",[m
+[31m-    "        self.phone_number = phone_number\n",[m
+[31m-    "\n",[m
+[31m-    "class Car3:\n",[m
+[31m-    "    # __init__ is a special method that runs only once when an object is instantiated (crea
